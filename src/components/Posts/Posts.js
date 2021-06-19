@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import styled from "styled-components";
 
 const Header = styled.header`
@@ -36,6 +37,8 @@ const Posts = () => {
 
     const [posts, setPosts] = useState(null);
 
+    const history = useHistory();
+
     useEffect(() => {
         fetchData('http://localhost:5000/')
             .then((res) => {
@@ -46,6 +49,9 @@ const Posts = () => {
             });
     }, [posts]);
 
+    const handleComment = (id) => {
+        history.push(`/post/${id}`);
+    }
 
   return (
     <div>
@@ -60,7 +66,11 @@ const Posts = () => {
                 <ListItem key={post._id}>
                     <p>{post.body}</p>
                     <span>Likes: {post.likes} </span>
+                    <button>Like</button>
                     <span>Dislikes: {post.dislikes}</span>
+                    <button>Dislike</button>
+                    <span>Comments: {post.comments.length}</span>
+                    <button onClick={() => {handleComment(post._id)}}>Comment</button>
                 </ListItem>
             );
         }) : null}
