@@ -1,8 +1,14 @@
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
+import Posts from './components/Posts/Posts';
+import AddPost from './components/AddPost/AddPost'
+
 function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
+    <Router>
+      <Route path='/' exact component={Posts} />
+      <Route path='/add-post' component={AddPost}/>
+    </Router>
   );
 }
 
