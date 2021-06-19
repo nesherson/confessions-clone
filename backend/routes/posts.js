@@ -42,7 +42,7 @@ router.route('/post/:id').get((req, res) => {
 router.route('/post/delete/:id').delete((req, res) => {
   Post.findByIdAndDelete(req.params.id)
     .then(() => {
-      return res.json('Exercise Deleted!');
+      return res.json('Post Deleted!');
     })
     .catch((err) => {
       return res.status(404).json(`Error: ${err}`);
@@ -59,7 +59,7 @@ router.route('/post/update/:id').get((req, res) => {
 
       post.save()
         .then(() => {
-          return res.json('Exercise Updated!');
+          return res.json('Post Updated!');
         })
         .catch((err) => {
           return res.status(404).json(`Error: ${err}`);
@@ -68,6 +68,35 @@ router.route('/post/update/:id').get((req, res) => {
     .catch((err) => {
       return res.status(404).json(`Error: ${err}`);
     });
+});
+
+router.route('/post/add-new-comment/:id').post((req, res) => {
+  Post.findById(req.params.id)
+  .then((post) => {
+    const body = req.body.body;
+    const likes = Number(req.body.likes);
+    const dislikes = Number(req.body.dislikes);
+    const date = Date.parse(req.body.date);
+    const newComment = {
+      body: body,
+      likes: likes,
+      dislikes: dislikes,
+      date: date
+    };
+    
+    post.comments.push(newComment)
+
+    post.save()
+      .then(() => {
+        return res.json('Comment Added!');
+      })
+      .catch((err) => {
+        return res.status(404).json(`Error: ${err}`);
+      });
+  })
+  .catch((err) => {
+    return res.status(404).json(`Error: ${err}`);
+  });
 });
 
 
