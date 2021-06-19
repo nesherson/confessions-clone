@@ -8,15 +8,15 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    like: {
+    likes: {
       type: Number,
       required: true,
     },
-    dislike: {
+    dislikes: {
       type: Number,
       required: true,
     },
-    comment_num: {
+    comments: {
       type: Number,
       required: true,
     },
