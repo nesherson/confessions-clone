@@ -16,7 +16,7 @@ router.route('/add-post').post((req, res) => {
   const body = req.body.body;
   const likes = Number(req.body.likes);
   const dislikes = Number(req.body.dislikes);
-  const comments = Number(req.body.comments);
+  const comments = req.body.comments;
   const date = Date.parse(req.body.date);
 
   const newPost = new Post({body, likes, dislikes, comments, date});
