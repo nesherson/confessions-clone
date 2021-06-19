@@ -17,7 +17,7 @@ const postSchema = new Schema(
       required: true,
     },
     comments: {
-      type: Number,
+      type: Array,
       required: true,
     },
     date: {
