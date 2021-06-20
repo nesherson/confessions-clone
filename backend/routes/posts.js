@@ -19,8 +19,9 @@ router.route('/add-post').post((req, res) => {
   const comments = req.body.comments;
   const date = Date.parse(req.body.date);
 
-  const newPost = new Post({body, likes, dislikes, comments, date});
-  newPost.save()
+  const newPost = new Post({ body, likes, dislikes, comments, date });
+  newPost
+    .save()
     .then(() => {
       return res.json('Post added!');
     })
@@ -49,15 +50,32 @@ router.route('/post/delete/:id').delete((req, res) => {
     });
 });
 
-router.route('/post/update/:id').get((req, res) => {
+router.route('/post/update/:id').post((req, res) => {
   Post.findById(req.params.id)
     .then((post) => {
-      post.body = req.body.body;
-      post.likes = req.body.likes;
-      post.dislikes = req.body.dislikes;
-      post.date = Date.parse(req.body.date)
+      if (req.query.like) {
+        const newLikes = post.likes + 1;
+        post.likes = newLikes;
+      } else if (req.query.dislike) {
+        const newDislikes = post.dislikes + 1;
+        post.dislikes = newDislikes;
+      } else if (req.query.comment) {
+        const body = req.body.body;
+        const likes = Number(req.body.likes);
+        const dislikes = Number(req.body.dislikes);
+        const date = Date.parse(req.body.date);
+        const newComment = {
+          body: body,
+          likes: likes,
+          dislikes: dislikes,
+          date: date,
+        };
 
-      post.save()
+        post.comments.push(newComment);
+      }
+
+      post
+        .save()
         .then(() => {
           return res.json('Post Updated!');
         })
@@ -69,35 +87,5 @@ router.route('/post/update/:id').get((req, res) => {
       return res.status(404).json(`Error: ${err}`);
     });
 });
-
-router.route('/post/add-new-comment/:id').post((req, res) => {
-  Post.findById(req.params.id)
-  .then((post) => {
-    const body = req.body.body;
-    const likes = Number(req.body.likes);
-    const dislikes = Number(req.body.dislikes);
-    const date = Date.parse(req.body.date);
-    const newComment = {
-      body: body,
-      likes: likes,
-      dislikes: dislikes,
-      date: date
-    };
-    
-    post.comments.push(newComment)
-
-    post.save()
-      .then(() => {
-        return res.json('Comment Added!');
-      })
-      .catch((err) => {
-        return res.status(404).json(`Error: ${err}`);
-      });
-  })
-  .catch((err) => {
-    return res.status(404).json(`Error: ${err}`);
-  });
-});
-
 
 module.exports = router;
