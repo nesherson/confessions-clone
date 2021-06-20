@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Header = styled.header`
   height: 54px;
@@ -26,6 +26,7 @@ const PostComments = styled.div`
 const CommentList = styled.ul`
   margin: 0;
   padding: 10px;
+  list-style: none;
 `;
 
 const Comment = styled.li`
@@ -43,19 +44,19 @@ const Form = styled.form`
   flex-flow: column;
 `;
 
-const fetchData = async (url = "") => {
+const fetchData = async (url = '') => {
   const response = await fetch(url);
   return response.json();
 };
 
-const postData = async (url = "", data = []) => {
+const postData = async (url = '', data = []) => {
   const response = await fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    mode: "cors",
-    credentials: "same-origin",
+    mode: 'cors',
+    credentials: 'same-origin',
     body: JSON.stringify(data),
   });
   return response.json();
@@ -63,7 +64,7 @@ const postData = async (url = "", data = []) => {
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState('');
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   const params = useParams();
@@ -73,9 +74,9 @@ const PostDetails = () => {
         setPost(res);
       })
       .catch((err) => {
-        console.log("PostDetails/fetchData - err: ", err);
+        console.log('PostDetails/fetchData - err: ', err);
       });
-  }, [params.id]);
+  }, [post, params.id]);
 
   const handleShowCommentForm = () => {
     setShowCommentForm((prevState) => !prevState);
@@ -93,12 +94,36 @@ const PostDetails = () => {
       dislikes: 0,
       date: new Date(),
     };
-    postData(`http://localhost:5000/post/add-new-comment/${params.id}`, comment)
+    postData(
+      `http://localhost:5000/post/update/${params.id}?comment=true`,
+      comment
+    )
       .then((res) => {
-        console.log("newComment/response: ", res);
+        console.log('newComment/response: ', res);
       })
       .catch((err) => {
-        console.log("newComment/submit - err: ", err);
+        console.log('newComment/submit - err: ', err);
+      });
+    handleShowCommentForm();
+  };
+
+  const handlePostLike = (id) => {
+    postData(`http://localhost:5000/post/update/${id}?like=true`)
+      .then((res) => {
+        console.log('Posts/handlePostLike - res: ', res);
+      })
+      .catch((err) => {
+        console.log('Posts/handlePostLike - err: ', err);
+      });
+  };
+
+  const handlePostDislike = (id) => {
+    postData(`http://localhost:5000/post/update/${id}?dislike=true`)
+      .then((res) => {
+        console.log('Posts/handlePostDislike - res: ', res);
+      })
+      .catch((err) => {
+        console.log('Posts/handlePostDislike - err: ', err);
       });
   };
 
@@ -112,15 +137,28 @@ const PostDetails = () => {
           <Post>
             <p>{post.body}</p>
             <span>Likes: {post.likes} </span>
-            <button>Like</button>
+            <button
+              onClick={() => {
+                handlePostLike(post._id);
+              }}
+            >
+              Like
+            </button>
             <span>Dislikes: {post.dislikes}</span>
-            <button>Dislike</button>
+            <button
+              onClick={() => {
+                handlePostDislike(post._id);
+              }}
+            >
+              Dislike
+            </button>
             <span>Comments: {post.comments.length}</span>
             <PostComments>
+              <h3>Comments: </h3>
               {post.comments.length > 0 ? (
                 <CommentList>
                   {post.comments.map((comment) => {
-                    return <Comment key={comment}>{comment}</Comment>;
+                    return <Comment key={comment.body}>{comment.body}</Comment>;
                   })}
                 </CommentList>
               ) : (
@@ -134,15 +172,15 @@ const PostDetails = () => {
                 <NewComment>
                   <Form onSubmit={handleSubmit}>
                     <textarea
-                      name="text"
-                      id="text"
-                      rows="10"
+                      name='text'
+                      id='text'
+                      rows='10'
                       onChange={handleTextChange}
                       value={commentText}
                     >
                       ...
                     </textarea>
-                    <input type="submit" value="Add Comment" />
+                    <input type='submit' value='Add Comment' />
                   </Form>
                 </NewComment>
               ) : null}
