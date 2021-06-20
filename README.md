@@ -1,6 +1,6 @@
 # Confessions Clone
 
-Anonymous personal confessions
+Anonymous personal confessions.
 
 ## Description
 
