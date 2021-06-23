@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Post from '../../UI/Post/Post';
+import Post from './Post/Post';
 
 const Main = styled.main`
   width: 100%;
@@ -10,9 +10,12 @@ const Main = styled.main`
 `;
 const PostList = styled.ul`
   width: 560px;
-  margin: 0 auto;
+  margin: 0 auto 15px auto;
   list-style: none;
-  padding: 15px 25px;
+  padding: 10px 0 0 0;
+  background-color: #192633;
+  border-left: 1px solid rgba(136, 136, 136, 0.25);
+  border-right: 1px solid rgba(136, 136, 136, 0.25);
 `;
 
 const fetchData = async (url = '') => {
@@ -53,7 +56,7 @@ const Posts = () => {
     return () => {
       isMounted = false;
     };
-  }, [posts]);
+  }, []);
 
   const handlePostDetails = (id) => {
     history.push(`/post/${id}`);
@@ -92,7 +95,7 @@ const Posts = () => {
                     date={post.date}
                     likes={post.likes}
                     dislikes={post.dislikes}
-                    comments={post.comments.length}
+                    comments={post.comments}
                     like={handlePostLike}
                     dislike={handlePostDislike}
                   >

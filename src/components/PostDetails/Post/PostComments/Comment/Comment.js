@@ -4,6 +4,10 @@ import FeatherIcon from 'feather-icons-react';
 const CommentBody = styled.li`
   padding: 7px 15px;
   border-bottom: 1px solid rgba(136, 136, 136, 0.25);
+  &:hover {
+    background-color: #192633;
+  }
+  transition: background-color 0.2s ease;
 `;
 
 const CommentDate = styled.span`
