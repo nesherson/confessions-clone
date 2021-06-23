@@ -34,6 +34,9 @@ const Form = styled.form`
   display: flex;
   flex-flow: column;
   align-items: center;
+  @media only screen and (max-width: 620px) {
+    width: 100%;
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -143,6 +146,8 @@ const PostComments = forwardRef(
           console.log('Posts/handleCommentDislike - err: ', err);
         });
     };
+
+    console.log('re');
     return (
       <Container>
         <Comments>

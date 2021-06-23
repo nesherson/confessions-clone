@@ -1,4 +1,4 @@
-import { useEffect, useState, createRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,11 +7,23 @@ import Post from './Post/Post';
 const Main = styled.main`
   width: 100%;
   height: calc(100vh - 54px);
+  display: flex;
+  justify-content: center;
 `;
 
 const PostWrapper = styled.div`
-  margin: 0 auto 25px auto;
+  min-width: 560px;
   width: 598px;
+  box-sizing: border-box;
+  @media only screen and (max-width: 862px) {
+    margin: 0 15% 25px 15%;
+  }
+
+  @media only screen and (max-width: 620px) {
+    margin: 0;
+    width: 100%;
+    min-width: 390px;
+  }
 `;
 
 const fetchData = async (url = '') => {
@@ -51,7 +63,7 @@ const PostDetails = () => {
     return () => {
       isMounted = false;
     };
-  }, [params.id, post]);
+  }, [params.id]);
 
   const handlePostLike = (id) => {
     postData(`http://localhost:5000/post/${id}/like`)
@@ -72,6 +84,8 @@ const PostDetails = () => {
         console.log('Posts/handlePostDislike - err: ', err);
       });
   };
+
+  console.log('re');
 
   return (
     <>

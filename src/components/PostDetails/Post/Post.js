@@ -13,6 +13,7 @@ const Container = styled.div`
   border-right: 1px solid rgba(136, 136, 136, 0.25);
   background-color: #15202b;
   transition: background-color 0.2s ease;
+  min-width: 390px;
 `;
 
 const PostWrapper = styled.div`
@@ -20,6 +21,9 @@ const PostWrapper = styled.div`
   border-bottom: 1px solid rgba(136, 136, 136, 0.25);
   background-color: #15202b;
   transition: background-color 0.2s ease;
+  @media only screen and (max-width: 620px) {
+    padding: 10px 3% 0 3%;
+  }
 `;
 
 const PostHeader = styled.div`
@@ -107,6 +111,8 @@ const Post = ({
     }
     newCommentRef.current.scrollIntoView();
   };
+
+  console.log('re');
 
   return (
     <>

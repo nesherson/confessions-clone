@@ -8,6 +8,9 @@ const CommentBody = styled.li`
     background-color: #192633;
   }
   transition: background-color 0.2s ease;
+  @media only screen and (max-width: 620px) {
+    padding: 7px 5px;
+  }
 `;
 
 const CommentDate = styled.span`
