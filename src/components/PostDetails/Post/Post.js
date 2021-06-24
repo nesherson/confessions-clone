@@ -22,7 +22,7 @@ const PostWrapper = styled.div`
   background-color: #15202b;
   transition: background-color 0.2s ease;
   @media only screen and (max-width: 620px) {
-    padding: 10px 3% 0 3%;
+    padding: 10px 2% 0 2%;
   }
 `;
 

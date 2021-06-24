@@ -15,6 +15,7 @@ const Container = styled.div`
     background-color: #192633;
   }
   transition: background-color 0.2s ease;
+  min-width: 390px;
 `;
 
 const PostWrapper = styled.div`
@@ -25,6 +26,9 @@ const PostWrapper = styled.div`
     background-color: #192633;
   }
   transition: background-color 0.2s ease;
+  @media only screen and (max-width: 620px) {
+    padding: 10px 2% 0 2%;
+  }
 `;
 
 const PostHeader = styled.div`

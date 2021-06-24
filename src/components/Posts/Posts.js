@@ -4,18 +4,26 @@ import styled from 'styled-components';
 
 import Post from './Post/Post';
 
-const Main = styled.main`
-  width: 100%;
-  height: calc(100vh - 54px);
-`;
 const PostList = styled.ul`
-  width: 560px;
-  margin: 0 auto 15px auto;
+  min-width: 560px;
+  width: 598px;
+  height: 100%;
+  margin: 0;
   list-style: none;
   padding: 10px 0 0 0;
   background-color: #192633;
   border-left: 1px solid rgba(136, 136, 136, 0.25);
   border-right: 1px solid rgba(136, 136, 136, 0.25);
+
+  @media only screen and (max-width: 862px) {
+    margin: 0 15% 0 15%;
+  }
+
+  @media only screen and (max-width: 620px) {
+    margin: 0;
+    width: 100%;
+    min-width: 390px;
+  }
 `;
 
 const fetchData = async (url = '') => {
@@ -83,8 +91,7 @@ const Posts = () => {
   };
 
   return (
-    <div>
-      <Main>
+    <>
         <PostList>
           {posts
             ? posts.map((post) => {
@@ -105,8 +112,7 @@ const Posts = () => {
               })
             : null}
         </PostList>
-      </Main>
-    </div>
+    </>
   );
 };
 

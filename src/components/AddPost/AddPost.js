@@ -3,26 +3,40 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Main = styled.main`
-  width: 100%;
-  height: calc(100vh - 54px);
+  height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
 `;
 
 const NewPost = styled.div`
-  margin: 0 auto;
   border-left: 1px solid rgba(136, 136, 136, 0.25);
   border-right: 1px solid rgba(136, 136, 136, 0.25);
   border-bottom: 1px solid rgba(136, 136, 136, 0.25);
-  width: 520px;
+  min-width: 560px;
+  width: 598px;
+  @media only screen and (max-width: 862px) {
+    margin: 0 15% 25px 15%;
+  }
+
+  @media only screen and (max-width: 620px) {
+    width: 100%;
+    margin: 0;
+    min-width: 390px;
+  }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-flow: column;
-  padding: 45px 25px 20px 25px;
+  align-items: center;
+  padding: 45px 15% 25px 15%;
+  @media only screen and (max-width: 620px) {
+    padding: 45px 2% 25px 2%;
+    //width: 100%;
+  }
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
   height: 150px;
   max-width: 470px;
   min-width: 470px;
@@ -39,6 +53,11 @@ const Textarea = styled.textarea`
     outline: none;
   }
   transition: background-color 0.2s ease;
+  @media only screen and (max-width: 620px) {
+    max-width: 100%;
+
+    min-width: 380px;
+  }
 `;
 
 const StyledButton = styled.button`

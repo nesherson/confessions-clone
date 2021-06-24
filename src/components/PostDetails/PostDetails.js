@@ -4,14 +4,7 @@ import styled from 'styled-components';
 
 import Post from './Post/Post';
 
-const Main = styled.main`
-  width: 100%;
-  height: calc(100vh - 54px);
-  display: flex;
-  justify-content: center;
-`;
-
-const PostWrapper = styled.div`
+const Container = styled.div`
   min-width: 560px;
   width: 598px;
   box-sizing: border-box;
@@ -88,10 +81,9 @@ const PostDetails = () => {
   console.log('re');
 
   return (
-    <>
-      <Main>
+    <>  
         {post ? (
-          <PostWrapper>
+          <Container>
             <Post
               id={post._id}
               date={post.date}
@@ -104,9 +96,8 @@ const PostDetails = () => {
             >
               {post.body}
             </Post>
-          </PostWrapper>
+          </Container>
         ) : null}
-      </Main>
     </>
   );
 };
