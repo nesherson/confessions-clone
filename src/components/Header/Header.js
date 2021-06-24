@@ -10,7 +10,7 @@ const Head = styled.header`
   }
 `;
 
-const Wrapper = styled.div`
+const Container = styled.div`
   margin: 10px 17%;
   display: flex;
   align-items: center;
@@ -54,11 +54,9 @@ const Icons = styled.div``;
 const Header = () => {
   const history = useHistory();
 
-  console.log('re');
-
   return (
     <Head>
-      <Wrapper>
+      <Container>
         <Logo>
           <Headline
             onClick={() => {
@@ -77,7 +75,7 @@ const Header = () => {
             }}
           />
         </Icons>
-      </Wrapper>
+      </Container>
     </Head>
   );
 };

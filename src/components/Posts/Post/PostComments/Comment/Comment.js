@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import FeatherIcon from 'feather-icons-react';
 
-const CommentBody = styled.li`
+const Container = styled.li`
   padding: 7px 15px;
   border-bottom: 1px solid rgba(136, 136, 136, 0.25);
   &:hover {
@@ -28,7 +28,7 @@ const Social = styled.div`
   align-items: center;
 `;
 
-const StyledIcon = styled(FeatherIcon)`
+const Icon = styled(FeatherIcon)`
   stroke: #bccedc;
   &:hover {
     stroke: #8aa9c1;
@@ -51,15 +51,15 @@ const Comment = ({
 }) => {
   const stats = likes - dislikes;
   return (
-    <CommentBody>
+    <Container>
       <CommentDate>{date}</CommentDate>
       <CommentText>{children}</CommentText>
       <Social>
-        <StyledIcon icon='thumbs-up' size='18' onClick={likeComment} />
-        <StyledIcon icon='thumbs-down' size='18' onClick={dislikeComment} />
+        <Icon icon='thumbs-up' size='18' onClick={likeComment} />
+        <Icon icon='thumbs-down' size='18' onClick={dislikeComment} />
         <Number>{stats}</Number>
       </Social>
-    </CommentBody>
+    </Container>
   );
 };
 

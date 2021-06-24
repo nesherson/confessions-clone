@@ -78,8 +78,6 @@ const PostDetails = () => {
       });
   };
 
-  console.log('re');
-
   return (
     <>  
         {post ? (
@@ -92,7 +90,6 @@ const PostDetails = () => {
               comments={post.comments}
               like={handlePostLike}
               dislike={handlePostDislike}
-              //handleNewComment={scrollToNewComment}
             >
               {post.body}
             </Post>

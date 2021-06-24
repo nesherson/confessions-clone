@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Post from './Post/Post';
@@ -47,8 +46,6 @@ const postData = async (url = '', data = {}) => {
 const Posts = () => {
   const [posts, setPosts] = useState(null);
 
-  const history = useHistory();
-
   useEffect(() => {
     let isMounted = true;
     fetchData('http://localhost:5000/')
@@ -65,10 +62,6 @@ const Posts = () => {
       isMounted = false;
     };
   }, []);
-
-  const handlePostDetails = (id) => {
-    history.push(`/post/${id}`);
-  };
 
   const handlePostLike = (id) => {
     postData(`http://localhost:5000/post/${id}/like`)

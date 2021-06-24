@@ -89,30 +89,28 @@ const Post = ({
   comments,
   like,
   dislike,
-  //handleNewComment,
 }) => {
-  const [showComments, setShowComments] = useState(true);
-  const [newComment, setNewComment] = useState(false);
 
-  const handleShowNewComment = () => {
-    if (newComment) {
-      setNewComment(false);
-    } else {
-      setNewComment(true);
-    }
-  };
+  const [showComments] = useState(true);
+  const [showNewCommentForm, setShowNewCommentForm] = useState(false);
+
   const history = useHistory();
-
   const newCommentRef = createRef(null);
 
+  const handleShowNewCommentForm = () => {
+    if (showNewCommentForm) {
+      setShowNewCommentForm(false);
+    } else {
+      setShowNewCommentForm(true);
+    }
+  };
+
   const scrollToNewComment = () => {
-    if (!newComment) {
-      handleShowNewComment();
+    if (!showNewCommentForm) {
+      handleShowNewCommentForm();
     }
     newCommentRef.current.scrollIntoView();
   };
-
-  console.log('re');
 
   return (
     <>
@@ -165,8 +163,8 @@ const Post = ({
             postId={id}
             comments={comments}
             ref={newCommentRef}
-            newComment={newComment}
-            showNewComment={handleShowNewComment}
+            showNewCommentForm={showNewCommentForm}
+            handleShowNewCommentForm={handleShowNewCommentForm}
           />
         ) : null}
       </Container>

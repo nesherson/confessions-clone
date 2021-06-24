@@ -21,7 +21,7 @@ const CommentList = styled.ul`
   background-color: #15202b;
 `;
 
-const NewComment = styled.div`
+const NewCommentForm = styled.div`
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -93,9 +93,9 @@ const postData = async (url = '', data = []) => {
 };
 
 const PostComments = forwardRef(
-  ({ postId, comments, newComment, showNewComment }, ref) => {
+  ({ postId, comments, showNewCommentForm, handleShowNewCommentForm }, ref) => {
     const [commentText, setCommentText] = useState('');
-    const [isNewCommentEmpty, setIsNewCommentEmpty] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
 
     const handleTextChange = (e) => {
       setCommentText(e.target.value);
@@ -105,7 +105,7 @@ const PostComments = forwardRef(
       e.preventDefault();
 
       if (commentText.length < 1) {
-        setIsNewCommentEmpty(true);
+        setIsEmpty(true);
         return;
       }
 
@@ -122,9 +122,10 @@ const PostComments = forwardRef(
         .catch((err) => {
           console.log('newComment/submit - err: ', err);
         });
-      setIsNewCommentEmpty(false);
-      showNewComment();
+        setIsEmpty(false);
+        handleShowNewCommentForm();
     };
+
     const handleCommentLike = (postId, commentId) => {
       postData(`http://localhost:5000/post/${postId}/comment/${commentId}/like`)
         .then((res) => {
@@ -147,7 +148,6 @@ const PostComments = forwardRef(
         });
     };
 
-    console.log('re');
     return (
       <Container>
         <Comments>
@@ -174,11 +174,11 @@ const PostComments = forwardRef(
             </CommentList>
           ) : null}
         </Comments>
-        <NewComment>
-          <Button onClick={showNewComment} ref={ref}>
+        <NewCommentForm>
+          <Button onClick={handleShowNewCommentForm} ref={ref}>
             Leave Your Comment
           </Button>
-          {newComment ? (
+          {showNewCommentForm ? (
             <Form onSubmit={handleSubmit}>
               <Textarea
                 name='text'
@@ -187,7 +187,7 @@ const PostComments = forwardRef(
                 placeholder='Comment Here'
                 value={commentText}
               ></Textarea>
-              {isNewCommentEmpty ? (
+              {isEmpty ? (
                 <Warning>Field Empty!</Warning>
               ) : (
                 <Warning></Warning>
@@ -195,7 +195,7 @@ const PostComments = forwardRef(
               <Button type='submit'>Add Comment</Button>
             </Form>
           ) : null}
-        </NewComment>
+        </NewCommentForm>
       </Container>
     );
   }

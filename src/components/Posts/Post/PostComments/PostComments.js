@@ -21,7 +21,7 @@ const CommentList = styled.ul`
   background-color: #15202b;
 `;
 
-const NewComment = styled.div`
+const NewCommentForm = styled.div`
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -91,11 +91,11 @@ const postData = async (url = '', data = []) => {
 
 const PostComments = ({ postId, comments }) => {
   const [commentText, setCommentText] = useState('');
-  const [isNewCommentEmpty, setIsNewCommentEmpty] = useState(false);
-  const [newComment, setNewComment] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [showNewCommentForm, setShowNewCommentForm] = useState(false);
 
   const handleNewComment = () => {
-    setNewComment((prevState) => !prevState);
+    setShowNewCommentForm((prevState) => !prevState);
   };
 
   const handleTextChange = (e) => {
@@ -106,7 +106,7 @@ const PostComments = ({ postId, comments }) => {
     e.preventDefault();
 
     if (commentText.length < 1) {
-      setIsNewCommentEmpty(true);
+      setIsEmpty(true);
       return;
     }
 
@@ -173,9 +173,9 @@ const PostComments = ({ postId, comments }) => {
           </CommentList>
         ) : null}
       </Comments>
-      <NewComment>
+      <NewCommentForm>
         <Button onClick={handleNewComment}>Leave Your Comment</Button>
-        {newComment ? (
+        {showNewCommentForm ? (
           <Form onSubmit={handleSubmit}>
             <Textarea
               name='text'
@@ -184,7 +184,7 @@ const PostComments = ({ postId, comments }) => {
               placeholder='Comment Here'
               value={commentText}
             ></Textarea>
-            {isNewCommentEmpty ? (
+            {isEmpty ? (
               <Warning>Field Empty!</Warning>
             ) : (
               <Warning></Warning>
@@ -192,7 +192,7 @@ const PostComments = ({ postId, comments }) => {
             <Button type='submit'>Add Comment</Button>
           </Form>
         ) : null}
-      </NewComment>
+      </NewCommentForm>
     </Container>
   );
 };
